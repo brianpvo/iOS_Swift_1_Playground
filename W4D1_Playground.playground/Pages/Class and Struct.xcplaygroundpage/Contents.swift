@@ -11,9 +11,10 @@
  Here we declare a class by using the `'class'` keyword and then the name of the class. Within the braces we are free to add properties and new methods for class.
  */
 class ShapeClass {
-    var numberOfSides = 0
+    var name: String = "Triangle"
+    var numberOfSides = 3
     func description() -> String {
-        return "A shape with \(numberOfSides) sides."
+        return "A \(name) shape with \(numberOfSides) sides."
     }
 }
 /*:
@@ -30,7 +31,8 @@ struct ShapeStruct {
  - Experiment:
  Update the ShapeClass and add a new property 'name'. Also, update the description method to include the name when it prints.
  */
-
+var shapeClass: ShapeClass = ShapeClass()
+print(shapeClass.description())
 
 /*:
  - Experiment:
@@ -46,8 +48,9 @@ class NamedShapeClass {
     var numberOfSides: Int = 0
     var name: String
     
-    init(name: String) {
+    init(name: String, numberOfSides: Int) {
         self.name = name
+        self.numberOfSides = numberOfSides
     }
     
     func description() -> String {
@@ -59,7 +62,8 @@ class NamedShapeClass {
  - Experiment:
  Add another initializer to our 'NamedShapeClass'. Have this initializer take in 'name' and 'numberOfSides' as its parameters. Then test it out by creating an instance of 'NamedShapeClass'.
  */
-
+var namedShape: NamedShapeClass = NamedShapeClass.init(name: "Triangle", numberOfSides: 3)
+print(namedShape.description())
 
 /*:
  - Callout(Challenge):
@@ -72,9 +76,23 @@ class NamedShapeClass {
  */
 
 class Square : NamedShapeClass {
-    
+    var sideLength = 0;
+    init(name: String, sideLength: Int) {
+        super.init(name: name, numberOfSides: 2)
+        self.sideLength = sideLength
+    }
+    func area() -> Int {
+        return sideLength * sideLength
+    }
+    override func description() -> String {
+        return "\(name) has \(numberOfSides) sides and \(sideLength) side length"
+    }
 }
 
+var square: Square = Square.init(name: "Square", sideLength: 10)
+
+print(square.area())
+print(square.description())
 /*:
  - Callout(Challenge):
  Follow the instructions to create your own Car class.
@@ -90,8 +108,28 @@ class Square : NamedShapeClass {
  - Add an instance of Toyota called toyota. Initialize it.
  - Add the drive() method to make sure it prints out "Prius"
  */
+class Car {
+    var model: String = ""
+    
+    init(model: String) {
+        self.model = model
+    }
+    
+    func drive() {
+        print("car model is \(model)")
+    }
+}
 
+class Toyota: Car {
+    override init(model: String) {
+        super.init(model: "Prius")
+    }
+}
 
+var nissan: Car = Car.init(model: "Rogue")
+nissan.drive()
+var toyota: Toyota = Toyota.init(model: "")
+toyota.drive()
 
 /*:
  - Callout(Challenge):
@@ -102,27 +140,41 @@ First, create a Person class with a name property and a custom initializer that 
 Now create the same Person class but convert it to a struct. Uncomment 'Section B'. What do think will happen? What are the results?
 */
 // Implement Person class under here!
+class Person {
+    var name: String = ""
+    init(name: String) {
+        self.name = name
+    }
+    
+}
 
 
 // Section A
-//var firstPersonObject = Person(name: "Joe")
-//var secondPersonObject = firstPersonObject
-//secondPersonObject.name = "Jane"
-//
-//print(firstPersonObject.name)
-//print(secondPersonObject.name)
+var firstPersonObject = Person(name: "Joe")
+var secondPersonObject = firstPersonObject
+secondPersonObject.name = "Jane"
+
+print(firstPersonObject.name)
+print(secondPersonObject.name)
 
 
 // Implement Person struct under here!
+struct Person1 {
+    var name: String = ""
+    init(name: String) {
+        self.name = name
+    }
+    
+}
 
 
 // Section B
-//var firstPersonStruct = Person(name: "Joe")
-//var secondPersonStruct = firstPersonStruct
-//secondPersonStruct.name = "Jane"
-//
-//print(firstPersonStruct.name)
-//print(secondPersonStruct.name)
+var firstPersonStruct = Person1(name: "Joe")
+var secondPersonStruct = firstPersonStruct
+secondPersonStruct.name = "Jane"
+
+print(firstPersonStruct.name)
+print(secondPersonStruct.name)
 
 
 //: [Next](@next)

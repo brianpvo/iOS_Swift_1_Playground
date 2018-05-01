@@ -19,12 +19,15 @@ var doubleNumberValue: Double? = nil
  - Experiment:
  Declare a non-optional variable of a `String` and set it to `nil`. What happens?
  */
+//var string: String = nil // error
 
 
 /*:
  - Experiment:
  Declare an optional variable of a type `String` and set an initial `String` value to it. Then set it to `nil` on the next line. Does this work? Why or why not?
  */
+var string: String? = "Hello"
+string = nil
 
 
 /*:
@@ -47,14 +50,15 @@ ratio * convertIntegerValue // now this works!
  - Experiment:
  Declare a `String` containing digits and try converting it to a `Double` the same way shown in the above example. What do you notice about the variable type? Hint: Use 'Option' + Mouse Click on the variable to see the type
  */
-
+var number: String = "45"
+var convertedNumber: Double = Double(number)! // have to force unwrap it
 
 /*:
  - Experiment:
  With your newly converted `Double` from a `String`, try multiplying it with the 'ratio' variable. What happens?
  */
 
-
+print(convertedNumber * ratio) //works perfectly when i force unwrapped it.. gave me an error if i didnt
 /*:
  Your newly converted `Double` value is a `Double?` which indicates we might have a double or we might have nothing.  Converting a `String` to a `Double` might fail because the `String` does not guarantee there will only be digits within it.
  
@@ -77,27 +81,30 @@ print("\(myOptionalDouble!)")
   - Experiment:
  Now you try! Try printing out your converted `Double?` with a force unwrap
 */
-
+// did this above
 
 
 /*:
  - Experiment:
  Go back and change your `String` to something that has no digits. What happens and why?
  */
-
-
+// I get an error saying cannot invoke a Double with an arg list of type String?
 
 /*:
  - Experiment:
  Declare an optional variable of a type `String` and set an initial `String` value to it. Try printing it.
  Now print it again, but this time unwrap the optional variable using the `'!'`. What's different about the two lines you printed?
  */
-
+var optionalString: String? = "Optional"
+print(optionalString) // optional
+print(optionalString!) //non optional
 
 /*:
  - Experiment:
  Try setting an optional `String` variable to a non-optional `String` variable. What happens? What can you do to prevent the compiler from throwing an error?
  */
+var nonOptional: String! = "NonOptional"
+optionalString = nonOptional
 
 
 /*:
@@ -121,19 +128,29 @@ if let unwrapped = gravityConstant {
  - Experiment:
  Try changing `gravityConstant` to nil. What happens?
  */
+//gravityConstant = nil
+// its let and not var
 
 
 /*:
  - Experiment:
  Create an array with containing elements of any type of your choice. Try experimenting with the array methods `'first'` and `'last'` to find out what they do. You'll see that both return optional values. Print out the values of first and last by using conditional unwrapping.
  */
+var array: [Int] = [0, 1, 2, 3]
 
+array.first
+array.last
 
+if let unwrapped: [Int] = array {
+    print(unwrapped)
+}
 /*:
  - Experiment:
  Using the same array, experiment with the array method `'indexOf'` and find out what it does. Print out the value using conditional unwrapping.
  */
-
+if let unwrapped: [Int] = array {
+    print(unwrapped.index(of: 0))
+}
 
 /*:
  - Callout(Challenge):
@@ -150,3 +167,14 @@ if let unwrapped = gravityConstant {
     Try printing a car's price using a name that doesn't exist.
 */
 //: [Next](@next)
+var dict: [String: Int] = ["Mazda3": 50000, "CRV": 60000, "Hummer": 100000]
+if let unwrapped = dict["Mazda3"] {
+    print("Mazda3 price is \(unwrapped)")
+}
+if let unwrapped = dict["CRV"] {
+    print("CRV price is \(unwrapped)")
+}
+if let unwrapped = dict["Hummer"] {
+    print("Hummer price is \(unwrapped)")
+}
+

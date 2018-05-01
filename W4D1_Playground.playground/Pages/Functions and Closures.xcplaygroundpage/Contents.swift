@@ -42,7 +42,9 @@ func sayHello(toPerson: String) -> String{
  - Experiment:
  Try calling all of the functions above. They all have the same function name, but the compiler doesn't complain. Can you think of why this might be?
  */
-
+sayHello()
+//print(sayHello(toPerson: "Brian"))
+//print(sayHello(toPerson: "BoB"))
 /*:
  - Experiment:
  Try creating your own function that accepts two parameters of any type you choose. Have the function print out the two parameters and test your function.
@@ -53,12 +55,34 @@ func sayHello(toPerson: String) -> String{
  Create four separate functions to add, subtract, multiple, and divide with two parameters given to it and returns a number result. Try testing each one afterwards.
  
  */
+func add(firstNum: Int, secondNum: Int) -> Int {
+    return firstNum + secondNum
+}
+func subtract(firstNum: Int, secondNum: Int) -> Int {
+    return firstNum - secondNum
+}
+func multiply(firstNum: Int, secondNum: Int) -> Int {
+    return firstNum * secondNum
+}
+func divide(firstNum: Int, secondNum: Int) -> Int {
+    return firstNum / secondNum
+}
 
+print(add(firstNum: 1, secondNum: 1))
+print(subtract(firstNum: 3, secondNum: 1))
+print(multiply(firstNum: 3, secondNum: 3))
+print(divide(firstNum: 4, secondNum: 2))
 /*:
  - Callout(Challenge):
  Create your own 'reverse' function that takes in an array of Int, reverses the order of the array, and returns the newly reversed array of Int. The array class has its own 'reverse' method, but do not use it for this challenge.
  */
+var array: [Int] = [1, 2, 3, 4, 5]
+var reverseArray = [Int]()
 
+for i in 0..<array.count {
+    reverseArray.append(array[(array.count - 1) - i])
+}
+print(reverseArray)
 /*:
  ## Closures
  
@@ -117,7 +141,9 @@ var sayHelloClosureWithReturn = { (name: String) -> String in
  - Experiment:
  Try calling all of the closures above. What do you notice that is different from calling a function?
  */
-
+sayHelloClosure()
+sayHelloClosureToPerson("")
+sayHelloClosureWithReturn("Brian")
 /*:
  - Experiment:
  Try creating your own closure that accepts two parameters of any type you choose. Have the closure print out the two parameters and test your closure.
@@ -133,3 +159,12 @@ var sayHelloClosureWithReturn = { (name: String) -> String in
  Create a closure with at least two parameters of your choice and decide whether or not it returns anything. Then create a function that takes in your closure as a parameter and one additional parameter of your choice.
  */
 //: [Next](@next)
+var myClosure = { (name: String, lastName: String) -> String in
+    return "Hello \(name) \(lastName)"
+}
+
+func myClosureFunc(closure: (String, String) -> String, string: String) -> String {
+    return "\(closure("Brian", "Vo")) \(string)"
+}
+
+print(myClosureFunc(closure: myClosure, string: "bye"))

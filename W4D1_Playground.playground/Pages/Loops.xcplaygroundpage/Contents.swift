@@ -29,19 +29,28 @@ for i in 2...5 {
  - Experiment:
  What's the difference between `2...5` vs `2..<5`?
  */
-
+// includes 5
 
 /*:
  - Experiment:
   Use a ranged for loop to search through the 'pets' array above for the word 'pig' and print out its index.
  */
-
+for i in 0..<pets.count {
+    if pets[i] == "pig" {
+        print("pig index is at \(i)")
+    }
+}
 
 /*:
  - Experiment:
  Create an array of random numbers of your choosing then make a for loop that adds 1 to each number.
  */
+var numArray: [Int] = [0, 2, 43, 23, 4, 7]
+for i in 0..<numArray.count {
+    numArray[i] += 1
 
+}
+print(numArray)
 
 /*:
  - Experiment:
@@ -73,7 +82,20 @@ print(largest)
  Given a number `N`, from 0 to `N`, add up all the odd numbers and print out the result.
  ie: N = 5, 1+3+5 = 9
  */
+//let odds = (0...100).filter { $0 % 2 == 1 }
+//print(odds)
+func addOdds(number: Int) -> Int {
+    var addAll = 0;
+    let odds = (0...number).filter { $0 % 2 == 1 }
+    for odd in odds {
+        addAll += odd
+    }
+    
+    return addAll
+    
+}
 
+print("add up all odd numbers: \(addOdds(number: 5))")
 
 /*:
  - Callout(Challenge):
@@ -89,5 +111,17 @@ print(largest)
  */
 
 let numberArray = [1, 4, 5, 5, 5, 3, 2, 1, 4, 2, 2, 2, 1]
+var counts: [Int: Int] = [:]
 
+//for item in numberArray {
+//    counts[item] = (counts[item] ?? 0) + 1
+//}
+numberArray.forEach {
+    counts[$0, default: 0] += 1
+    
+}
+
+for (key, value) in counts {
+    print("\(key): Occurs \(value) time(s)")
+}
 //: [Next](@next)

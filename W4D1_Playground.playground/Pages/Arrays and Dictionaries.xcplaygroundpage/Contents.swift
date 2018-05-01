@@ -19,19 +19,24 @@ myDictionary["Principal"] = 1
  - Experiment:
  Try creating an array and dictionary using `'let'` vs `'var'` then try adding something to them. What do you notice? For the array, you can use a method called 'append' to add something to it.
  */
-
+var varArray: [String] = []
+let letArray: [String] = []
+varArray.append("hello")
+//letArray.append("hello") // cannot do
 
 /*:
  - Experiment:
  Try creating an empty array with an explicit type `[type]`. What happens when you add a value that isn't the same type?
  */
 
+var typeArray: [String] = []
+//typeArray.append(4) // error cause its not the same type
 
 /*:
  - Experiment:
  Try creating an empty dictionary with an explicit type. `[keyType: valueType]`
  */
-
+var dict: [String: String] = [:]
 
 /*:
  - Experiment:
@@ -43,8 +48,12 @@ myDictionary["Principal"] = 1
  - reverse
  - count
  */
-
-
+typeArray.append("Hello")
+typeArray.insert("Bye", at: typeArray.count)
+typeArray.reverse()
+typeArray.remove(at: 0)
+typeArray.removeAll()
+typeArray.count
 /*:
  - Experiment:
  Create a dictionary with any values of your choice. Play around with accessing a value by its key. Try keys using different case sensitivity, what happens? Then try playing with the following methods of a dictionary and find out what they do:
@@ -52,7 +61,8 @@ myDictionary["Principal"] = 1
  - isEmpty
  - count
  */
-
+dict["greeting"] = "hello"
+dict["bye"] = "goodbye"
 
 /*:
  - Callout(Challenge):
@@ -60,7 +70,13 @@ myDictionary["Principal"] = 1
  
     Finally, print out each person's name from the array using their index and string interpolation
 */
-
+var mutableArray: [String] = []
+mutableArray.append("John")
+mutableArray.append("Karen")
+mutableArray.append("Jane")
+print(mutableArray[0])
+print(mutableArray[1])
+print(mutableArray[2])
 
 /*:
  - Callout(Challenge):
@@ -74,6 +90,8 @@ myDictionary["Principal"] = 1
  
     On the next line, add this last person's info: Bob - $45000
  */
-
+var salarayDict: [String: Int] = ["John": 50000, "Jane": 70000, "Karen": 62000]
+salarayDict["Bob"] = 45000
+print(salarayDict)
 
 //: [Next](@next)

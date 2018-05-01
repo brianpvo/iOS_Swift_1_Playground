@@ -23,13 +23,14 @@ namedPersonTuple.age
  - Experiment:
  Try creating your own tuple. Mix in different variable types and try mixing some parameters with names and some without. Does it still work?
  */
-
+var schoolTuple = (subject: "math", grade: 80, section: 100)
+// yes
 
 /*:
  - Experiment:
  Try nesting tuples within one another. Create a tuple and add a tuple as one of its items.
  */
-
+var multipleTuple = (tuple1: namedPersonTuple.firstName, tuple2: schoolTuple.grade)
 
 /*:
  - Experiment:
@@ -52,7 +53,14 @@ for (kind, numbers) in interestingNumbers {
 To test: call your new function with eligable true and false, and print the two values
  (Hint: Use optional return value and conditional unwrapping)
  */
-
+func areYouOldEnough(name: String, age: Int, eligable: Bool) -> String? {
+    if eligable {
+        return "\(name) and \(age)"
+    }
+    else {
+        return nil
+    }
+}
 
 /*:
  ## Enums
@@ -63,18 +71,37 @@ To test: call your new function with eligable true and false, and print the two 
  */
 
 enum Months: Int{
-    case January = 1
+    case January
     case Feburary
     case March
     case April
-    case May, June, July, August
+    case May, June, July, August, September, October, November, December
     //...
     
     func abbreviatedStringForm() -> String {
         switch self {
-            default:
-                return ""
+        case .January:
+            return "Jan"
+        case .Feburary:
+            return "Feb"
+        case .March:
+            return "Mar"
+        case .April:
+            return "Apr"
+        case .May:
+            return "May"
+        case .June:
+            return "Jun"
+        case .July:
+            return "Jul"
+        case .August:
+            return "Aug"
+        case .September:
+            return "Sept"
+        default:
+            return ""
         }
+       
     }
 }
 
@@ -88,13 +115,14 @@ let marchMonth = Months.March
  \
 Try removing the '= 1' from the Months enum. Now what is different?
  */
-
+januaryMonth.rawValue // integer decreased by 1 on the index
+marchMonth.rawValue
 
 /*:
  - Experiment:
  Finish the rest of the months for our `Months` enum. Then take a look at `abbreviatedStringForm()` function. Complete this function so that it returns the abbreviated form of the desired month as a String. ie: calling `Months.January.abbreviatedStringForm()` returns "Jan".
  */
-
+januaryMonth.abbreviatedStringForm()
 
 /*:
  - Experiment:
@@ -106,6 +134,48 @@ Try removing the '= 1' from the Months enum. Now what is different?
  - Callout(Challenge):
  Create enums for the game "Rock, Paper, Scissors". Create a function within the enum that compares two hand shapes and determines the winner. Then create a function that returns ✋ , ✌️, or 👊 given rock, paper, or scissors.
 */
+enum RockPaperScissors: String {
+    case Rock, Paper, Scissors
+    
+    func compareShape(verse: RockPaperScissors) -> String {
+        switch self {
+        case .Rock:
+            if verse == .Rock {
+                return "tied"
+            }
+            if verse == .Paper {
+                return "you lose"
+            }
+            else {
+                return "you won"
+            }
+        case .Paper:
+            if verse == .Rock {
+                return "you won"
+            }
+            if verse == .Paper {
+                return "you tied"
+            }
+            else {
+                return "you lost"
+            }
+        case .Scissors:
+            if verse == .Rock {
+                return "you lost"
+            }
+            if verse == .Paper {
+                return "you won"
+            }
+            else {
+                return "you tied"
+            }
+        default:
+            return ""
+        }
+    }
+}
 
-
+var rock = RockPaperScissors.Rock
+rock.rawValue
+rock.compareShape(verse: RockPaperScissors.Scissors)
 //: [Next](@next)

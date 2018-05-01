@@ -8,7 +8,10 @@
  */
 protocol ShapeProtocol {
     var numberOfSides: Int { get set }
+    var sideLength: Int {get set}
+    var color: String {get set }
     func shapeDescription()
+    func area()
 }
 
 /*:
@@ -16,14 +19,21 @@ protocol ShapeProtocol {
  */
 class Square: ShapeProtocol {
     var numberOfSides: Int
+    var color: String
+    var sideLength: Int
     
-    init(){
+    init(color: String){
         self.numberOfSides = 4
+        self.sideLength = 10
+        self.color = color
     }
     
     func shapeDescription() {
         
         print("This is a square")
+    }
+    func area() {
+        self.sideLength * self.sideLength
     }
 }
 
@@ -46,7 +56,32 @@ class Square: ShapeProtocol {
  - Callout(Challenge):
  Define a person protocol with name, gender, age and add a custom initializer to set all the properties and a function to print a description of this person. Create a 'Student' class that conforms to this protocol and print the description of this student using its name.
  */
+protocol Person {
+    var name: String { get set }
+    var gender: String { get set }
+    var age: Int { get set }
+    
+    init(name: String, gender: String, age: Int)
+    func description()
+}
 
+class Student: Person {
+    var name: String
+    var gender: String
+    var age: Int
+    
+    required init(name: String, gender: String, age: Int) {
+        self.name = name
+        self.gender = gender
+        self.age = age
+    }
+    func description() {
+        print("Hi my \(name) and I am a \(gender) at age \(age)")
+    }
+}
+
+var student: Student = Student.init(name: "Brian", gender: "Male", age: 23)
+student.description()
 /*:
  ## Extensions
  Extensions are a way to add additional functions to an existing class, struct or enum.
@@ -74,7 +109,14 @@ var mySquaredDoubleValue = myDoubleValue.square()
  - Experiment:
  Try adding the 'square' function to the `Float` type
  */
+extension Float {
+    func square() -> Float {
+        return self * self
+    }
+}
 
+var myFloat: Float = 5.0
+myFloat.square()
 /*:
  We are going to add a few extensions to several classes that you could potentially use for your future projects to make things more convenient.
  */
@@ -82,17 +124,43 @@ var mySquaredDoubleValue = myDoubleValue.square()
  - Callout(Challenge):
  Create an extension on UIColor that converts hex represented colours to a UIColor to use. ex: #FFFFFF would give a UIColor of white (Hint: You can google the algorithm on how to convert hex values to a UIColor)
  */
+import UIKit
 
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
+    }
+}
 /*:
  - Callout(Challenge):
  Create an extension on `String` called 'trim'. This will return a `String` that has the whitespace trimmed from the beginning and end. For example: "    hello there  " will return "hellothere"
  */
-
+extension String {
+    func trim() -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
 /*:
  - Callout(Challenge):
  Create an extension on String that checks if an email address has a valid format. You can make the rules as strict or as loose as you'd like. Rules can include verifying there are no spaces, there is a '@' present, etc.
  */
-
+extension String {
+    func validEmail() -> Bool {
+        return !self.contains(" ") && self.contains("@")
+    }
+}
 /*:
  - Callout(Challenge):
  Create an extension on `Double` to add a function that converts the number of seconds into minutes and another function to hours. ex: Given 900 seconds, the minutes returned will be 15 minutes, and the hours returned would be 0.25 hours.
