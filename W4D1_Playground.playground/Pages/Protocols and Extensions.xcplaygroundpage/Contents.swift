@@ -165,5 +165,12 @@ extension String {
  - Callout(Challenge):
  Create an extension on `Double` to add a function that converts the number of seconds into minutes and another function to hours. ex: Given 900 seconds, the minutes returned will be 15 minutes, and the hours returned would be 0.25 hours.
  */
-
+extension Double {
+    func sec2Min() -> Double {
+        return self * 60.0
+    }
+    func sec2Hr() -> Double {
+        return self * 60 * 60
+    }
+}
 //: [Next](@next)
